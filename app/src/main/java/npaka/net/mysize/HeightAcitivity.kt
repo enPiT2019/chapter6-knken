@@ -18,10 +18,9 @@ class HeightAcitivity : AppCompatActivity() {
 
         spinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                }
 
-                override fun onItemSelected(
+                override
+                fun onItemSelected(
                     parent: AdapterView<*>?,
                     view: View?,
                     position: Int,
@@ -33,15 +32,19 @@ class HeightAcitivity : AppCompatActivity() {
                         if (it.isNotEmpty()) height.text = it
                     }
                 }
-            }
 
+                override
+                fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+
+            }
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
-        val heightVal = pref.getInt("TAKASA", 160)
+        val heightVal = pref.getInt("HEIGHT", 160)
         height.text = heightVal.toString()
         seekBar.progress = heightVal
 
         seekBar.setOnSeekBarChangeListener(
-            object : SeekBar.OnSeekBarChangeListener{
+            object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(
                     seekBar: SeekBar?,
                     progress: Int,
@@ -50,24 +53,23 @@ class HeightAcitivity : AppCompatActivity() {
                     height.text = progress.toString()
                 }
 
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                override
+                fun onStartTrackingTouch(seekBar: SeekBar?) {
                 }
 
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                override
+                fun onStopTrackingTouch(seekBar: SeekBar?) {
                 }
-            }
-        )
+            })
 
-        radioGroup.setOnCheckedChangeListener{
-            group, checkedId ->
+        radioGroup.setOnCheckedChangeListener { group, checkedId ->
             height.text = findViewById<RadioButton>(checkedId).text
         }
     }
-
-    override fun onPause(){
+    override fun onPause() {
         super.onPause()
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         val editor = pref.edit()
-        editor.putInt("TAKASA", height.text.toString().toInt())
+        editor.putInt("HEIGHT", height.text.toString().toInt())
     }
 }
